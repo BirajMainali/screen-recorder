@@ -1,23 +1,25 @@
 const __ = document.querySelector.bind(document);
-start = async () => {
+const start = async () => {
 
     const stream = await navigator.mediaDevices.getDisplayMedia({
         video: {
             mediaSource: "screen",
         },
     });
-    const chuks = [];
+    const Chuks = [];
     const mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = (e) => {
-        chuks.push(e.data);
+        Chuks.push(e.data);
     };
     mediaRecorder.start();
-    mediaRecorder.onstop = (e) => {
+    mediaRecorder.onstop = async (e) => {
         __("video").src = URL.createObjectURL(
-            new Blob(chuks, {
-                type: chuks[0].type,
+            new Blob(Chuks, {
+                type: Chuks[0].type,
             })
         );
     };
 };
+
+
 __(".start__recording").addEventListener('click', start)
