@@ -1,6 +1,6 @@
 const __ = document.querySelector.bind(document);
 
-const sessionFactoryLoader = async () => {
+const sessionManager = async () => {
     return {
         stream: await navigator.mediaDevices.getDisplayMedia({video: {mediaSource: "screen",},}),
         chunks: [],
@@ -37,6 +37,6 @@ const sessionFactoryLoader = async () => {
     }
 };
 __(".start__recording").addEventListener('click', async _ => {
-    await (await sessionFactoryLoader()).startRecording()
+    await (await sessionManager()).startRecording()
 });
 
